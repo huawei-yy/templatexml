@@ -106,4 +106,9 @@ class IfElementHandler implements ElementHandler {
 
 	}
 
+	@Override
+	public String applyToAttributeName() {
+		return Constant.IF;
+	}
+
 }

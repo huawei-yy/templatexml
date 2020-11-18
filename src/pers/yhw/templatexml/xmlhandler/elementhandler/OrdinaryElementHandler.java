@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.dom4j.Element;
 
+import pers.yhw.templatexml.xmlhandler.Constant;
+
 class OrdinaryElementHandler implements ElementHandler {
 	@Override
 	public void buildElement(Element element, Map<String, Object> objectVos) {
@@ -15,4 +17,8 @@ class OrdinaryElementHandler implements ElementHandler {
 		}
 	}
 
+	@Override
+	public String applyToAttributeName() {
+		return Constant.ORDINARY;
+	}
 }

@@ -86,4 +86,8 @@ class RepeatElementHandler implements ElementHandler {
 
 	}
 
+	@Override
+	public String applyToAttributeName() {
+		return Constant.REPEAT;
+	}
 }

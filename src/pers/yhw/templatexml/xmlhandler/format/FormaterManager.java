@@ -1,13 +1,19 @@
 package pers.yhw.templatexml.xmlhandler.format;
 
-import java.text.DecimalFormat;
-import java.text.Format;
-import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import pers.yhw.templatexml.xmlhandler.Constant;
 
 public class FormaterManager {
-	public static Format getFormater(String formatExpression) {
+	private static Map<String, Format> formatMap = new HashMap<String, Format>();
+	static {
+		regist(new TransCodeFormat());
+		regist(new NumberFormat());
+		regist(new DateFormat());
+	}
+
+	private static FormatInfo parse(String formatExpression) {
 		int formatNameSplitIndex = formatExpression.indexOf(Constant.FORMATNAMESPLIT);
 		String name = "";
 		String pattern = null;
@@ -17,14 +23,26 @@ public class FormaterManager {
 		} else {
 			name = formatExpression;
 		}
-		switch (name) {
-		case Constant.DATEFORMAT:
-			return new SimpleDateFormat(pattern);
-		case Constant.NUMBERFORMAT:
-			return new DecimalFormat(pattern);
-		case Constant.TRANSCODE:
-			return new TransCodeFormat(pattern);
-		}
-		return null;
+		FormatInfo formatInfo = new FormatInfo();
+		formatInfo.setName(name);
+		formatInfo.setPattern(pattern);
+		return formatInfo;
 	}
+
+	public static String toStr(Object object, String formatExpression) {
+		FormatInfo formatInfo = parse(formatExpression);
+		Format format = formatMap.get(formatInfo.getName());
+		return format.toStr(object, formatInfo.getPattern());
+	}
+
+	public static Object toObject(String strVule, String formatExpression) {
+		FormatInfo formatInfo = parse(formatExpression);
+		Format format = formatMap.get(formatInfo.getName());
+		return format.toObject(strVule, formatInfo.getPattern());
+	}
+
+	public static void regist(Format format) {
+		formatMap.put(format.formatName(), format);
+	}
+
 }

@@ -1,6 +1,5 @@
 package pers.yhw.templatexml.xmlhandler.elementhandler;
 
-import java.text.Format;
 import java.util.Map;
 
 import org.dom4j.Attribute;
@@ -22,8 +21,7 @@ class ModelElementHandler implements ElementHandler {
 		String valueStr = "";
 		if (value != null) {
 			if (modelAttribute.isHasFormat()) {
-				Format formater = FormaterManager.getFormater(modelAttribute.getFormatExpression());
-				valueStr = formater.format(value);
+				valueStr = FormaterManager.toStr(value, modelAttribute.getFormatExpression());
 			} else {
 				valueStr = value.toString();
 			}
@@ -79,4 +77,8 @@ class ModelElementHandler implements ElementHandler {
 
 	}
 
+	@Override
+	public String applyToAttributeName() {
+		return Constant.MODEL;
+	}
 }

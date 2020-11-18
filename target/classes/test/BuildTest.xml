@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GBK"?>
+<data>
+	<!-- x-repeat为迭代$.classs对象,并添加对应节点。$.classs为根对象下的classs属性,$代表为根对象 -->
+	<class x-repeat="class in $.classs">
+		<!-- x-model为将该节点text赋值为class.no -->
+		<id x-model="class.no"></id>
+		<name x-model="class.name"></name>
+		<!-- x-if表达式的值为真则输出该节点，假则不输出 。x-repeat与x-if哪个位置在前先执行哪个 -->
+		<stu x-repeat="stu in $.stus" x-if="class.no==stu.classno">
+			<name x-model="stu.name"></name>
+			<age x-model="stu.age">20</age>
+			<!-- transCode为转码，代表将0值输出为女 -->
+			<sex x-model="stu.sex|transCode:{0=女,1=男}"></sex>
+			<!-- dateFormat 为时间格式化 -->
+			<birthday x-model="stu.birthday|dateFormat:yyyy-MM-dd"></birthday>
+			<!-- numberFormat 为数字格式化 -->
+			<score x-model="stu.score|numberFormat:###"></score>
+		</stu>
+	</class>
+</data>
