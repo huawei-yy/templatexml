@@ -11,7 +11,7 @@ public class XmlBuildAndParse {
 		return XmlBuilder.buildxml(object, xmlTemplate);
 	}
 
-	public static <T> T parstxml(Class<T> returnType, String xmlTemplate, String targetXml) {
+	public static <T> T parstxml(Class<T> returnType, String xmlTemplate, String targetXml) throws InstantiationException, IllegalAccessException, DocumentException  {
 		return XmlParser.parstxml(returnType, xmlTemplate, targetXml);
 	}
 

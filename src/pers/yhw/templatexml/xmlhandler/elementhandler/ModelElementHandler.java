@@ -5,17 +5,15 @@ import java.util.Map;
 import org.dom4j.Attribute;
 import org.dom4j.Element;
 
-import pers.yhw.templatexml.xmlhandler.BeanPropertyUtils;
+import pers.yhw.templatexml.beanpropertyutils.BeanPropertyUtils;
 import pers.yhw.templatexml.xmlhandler.Constant;
 import pers.yhw.templatexml.xmlhandler.format.FormaterManager;
 
 class ModelElementHandler implements ElementHandler {
 
 	@Override
-	public void buildElement(Element element, Map<String, Object> objectVos) {
-		Attribute attribute = element.attribute(Constant.MODEL);
-		// É¾³ýx-repeat²ÎÊý
-		element.remove(attribute);
+	public void buildElement(Element templateElement, Map<String, Object> objectVos) {
+		Attribute attribute = getAndRemoveAttribute(templateElement);
 		ModelAttribute modelAttribute = parseModelAttribute(attribute);
 		Object value = BeanPropertyUtils.getProperty(objectVos, modelAttribute.getValueExpression());
 		String valueStr = "";
@@ -26,7 +24,7 @@ class ModelElementHandler implements ElementHandler {
 				valueStr = value.toString();
 			}
 		}
-		element.setText(valueStr);
+		templateElement.setText(valueStr);
 	}
 
 	private ModelAttribute parseModelAttribute(Attribute attribute) {
@@ -80,5 +78,11 @@ class ModelElementHandler implements ElementHandler {
 	@Override
 	public String applyToAttributeName() {
 		return Constant.MODEL;
+	}
+
+	@Override
+	public void parseElement(Element templateElement, Element targetElement, Map<String, Object> objectVos) {
+		Attribute attribute = getAndRemoveAttribute(templateElement);
+		
 	}
 }

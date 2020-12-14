@@ -14,7 +14,7 @@
 			<!-- dateFormat 为时间格式化 -->
 			<birthday x-model="stu.birthday|dateFormat:yyyy-MM-dd"></birthday>
 			<!-- numberFormat 为数字格式化 -->
-			<score x-model="stu.score|numberFormat:###"></score>
+			<score x-model="stu.score|numberFormat:##.#"></score>
 		</stu>
 	</class>
 </data>

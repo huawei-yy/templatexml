@@ -9,9 +9,9 @@ import pers.yhw.templatexml.xmlhandler.Constant;
 
 class OrdinaryElementHandler implements ElementHandler {
 	@Override
-	public void buildElement(Element element, Map<String, Object> objectVos) {
-		if (element != null) {
-			for (Element childElement : (List<Element>) element.elements()) {
+	public void buildElement(Element templateElement, Map<String, Object> objectVos) {
+		if (templateElement != null) {
+			for (Element childElement : (List<Element>) templateElement.elements()) {
 				ElementHandlerManager.getElementHandler(childElement).buildElement(childElement, objectVos);
 			}
 		}
@@ -20,5 +20,16 @@ class OrdinaryElementHandler implements ElementHandler {
 	@Override
 	public String applyToAttributeName() {
 		return Constant.ORDINARY;
+	}
+
+	@Override
+	public void parseElement(Element templateElement, Element targetElement, Map<String, Object> objectVos) {
+		if (templateElement != null) {
+			for (Element templateChildElement : (List<Element>) templateElement.elements()) {
+				Element targetChildElement = targetElement.element(templateChildElement.getName());
+				ElementHandlerManager.getElementHandler(templateChildElement).parseElement(templateChildElement,
+						targetChildElement, objectVos);
+			}
+		}
 	}
 }

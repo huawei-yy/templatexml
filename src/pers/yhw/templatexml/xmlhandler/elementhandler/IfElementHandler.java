@@ -13,7 +13,7 @@ import javax.script.ScriptException;
 import org.dom4j.Attribute;
 import org.dom4j.Element;
 
-import pers.yhw.templatexml.xmlhandler.BeanPropertyUtils;
+import pers.yhw.templatexml.beanpropertyutils.BeanPropertyUtils;
 import pers.yhw.templatexml.xmlhandler.Constant;
 
 class IfElementHandler implements ElementHandler {
@@ -32,16 +32,14 @@ class IfElementHandler implements ElementHandler {
 	}
 
 	@Override
-	public void buildElement(Element element, Map<String, Object> objectVos) {
-		Attribute attribute = element.attribute(Constant.IF);
-		// É¾³ý²ÎÊý
-		element.remove(attribute);
+	public void buildElement(Element templateElement, Map<String, Object> objectVos) {
+		Attribute attribute = getAndRemoveAttribute(templateElement);
 		IfAttribute ifAttribute = parseAttribute(attribute);
 		boolean isTrue = logicalOperate(ifAttribute, objectVos);
 		if (isTrue) {
-			ElementHandlerManager.getElementHandler(element).buildElement(element, objectVos);
+			ElementHandlerManager.getElementHandler(templateElement).buildElement(templateElement, objectVos);
 		} else {
-			element.getParent().remove(element);
+			templateElement.getParent().remove(templateElement);
 		}
 	}
 
@@ -109,6 +107,12 @@ class IfElementHandler implements ElementHandler {
 	@Override
 	public String applyToAttributeName() {
 		return Constant.IF;
+	}
+
+	@Override
+	public void parseElement(Element templateElement, Element targetElement, Map<String, Object> objectVos) {
+		Attribute attribute = getAndRemoveAttribute(templateElement);
+		ElementHandlerManager.getElementHandler(templateElement).buildElement(templateElement, objectVos);
 	}
 
 }

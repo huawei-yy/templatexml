@@ -15,7 +15,7 @@ public class XmlBuilder {
 	public static String buildxml(Object object, String xmlTemplate) throws DocumentException {
 		Document document = DocumentHelper.parseText(xmlTemplate);
 		Document target = buildDocument(object, document);
-		return documentToStr(target);
+		return target.asXML().replaceAll("(?s)<\\!\\-\\-.+?\\-\\->", "");
 	}
 
 	public static String buildxml(Object object, Document xmlTemplate) throws DocumentException {
