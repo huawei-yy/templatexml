@@ -1,5 +1,6 @@
 package pers.yhw.templatexml.beanpropertyutils;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -7,13 +8,16 @@ import java.util.List;
 public class ListPropertyHandler implements PropertyHandler {
 
 	@Override
-	public PropertyInfo getProperty(PropertyInfo upPropertyInfo, String subPath) {
+	public PropertyInfo getProperty(PropertyInfo upperPropertyInfo, String subPath) {
 		PropertyInfo propertyInfo = new PropertyInfo();
-		List list = (List) upPropertyInfo.getValue();
-		Type[] upGenericTypes = upPropertyInfo.getGenericTypes();
+		List list = (List) upperPropertyInfo.getValue();
+		Type[] upGenericTypes = upperPropertyInfo.getGenericTypes();
 		Object value = null;
 		if (PathParser.isIndexed(subPath)) {
-			value = list.get(PathParser.parseIndexedPath(subPath));
+			int intdex = PathParser.parseIndexedPath(subPath);
+			if (intdex < list.size()) {
+				value = list.get(intdex);
+			}
 		} else {
 			throw new IllegalArgumentException(subPath + "is illegalArgument");
 		}
@@ -23,9 +27,11 @@ public class ListPropertyHandler implements PropertyHandler {
 			type = value.getClass();
 		} else {
 			if (upGenericTypes != null && upGenericTypes.length >= 1) {
-				if (upGenericTypes[1] instanceof ParameterizedType) {
+				if (upGenericTypes[0] instanceof ParameterizedType) {
 					type = (Class) ((ParameterizedType) upGenericTypes[0]).getRawType();
 					genericTypes = ((ParameterizedType) upGenericTypes[0]).getActualTypeArguments();
+				}else if (upGenericTypes[0] instanceof Class){
+					type = (Class) ( upGenericTypes[0]);
 				}
 			}
 		}
@@ -36,9 +42,18 @@ public class ListPropertyHandler implements PropertyHandler {
 	}
 
 	@Override
-	public void setProperty(PropertyInfo upPropertyInfo, String subPath, Object value) {
-		// TODO Auto-generated method stub
-
+	public void setProperty(PropertyInfo upperPropertyInfo, String subPath, Object value) {
+		List list = (List) upperPropertyInfo.getValue();
+		Class upperType = upperPropertyInfo.getType();
+		if (PathParser.isIndexed(subPath)) {
+		} else {
+			throw new IllegalArgumentException(subPath + "is illegalArgument");
+		}
+		int index = PathParser.parseIndexedPath(subPath);
+		while (index > list.size() - 1) {
+			list.add(null);
+		}
+		list.set(index, value);
 	}
 
 }

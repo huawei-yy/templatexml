@@ -112,7 +112,7 @@ class IfElementHandler implements ElementHandler {
 	@Override
 	public void parseElement(Element templateElement, Element targetElement, Map<String, Object> objectVos) {
 		Attribute attribute = getAndRemoveAttribute(templateElement);
-		ElementHandlerManager.getElementHandler(templateElement).buildElement(templateElement, objectVos);
+		ElementHandlerManager.getElementHandler(templateElement).parseElement(templateElement,targetElement, objectVos);
 	}
 
 }

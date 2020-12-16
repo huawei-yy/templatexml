@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="GBK"?>
+<data>
+
+
+	<class1>01001</class1>
+
+	<class>
+
+		<id>01001</id>
+		<name>一年级一班</name>
+
+
+
+		<stu>
+			<name>嘻嘻</name>
+			<age>7</age>
+
+			<sex>男</sex>
+
+			<birthday>2020-12-16</birthday>
+
+			<score>97.7</score>
+		</stu>
+	</class>
+	<class>
+
+		<id>01002</id>
+		<name>一年级二班</name>
+
+
+
+		<stu>
+			<name>哈哈</name>
+			<age>6</age>
+
+			<sex>女</sex>
+
+			<birthday>2020-12-16</birthday>
+
+			<score>96.9</score>
+		</stu>
+	</class>
+</data>

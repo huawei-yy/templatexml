@@ -5,10 +5,9 @@ import java.lang.reflect.Type;
 public class ArrayProperyHandler implements PropertyHandler {
 
 	@Override
-	public PropertyInfo getProperty(PropertyInfo upPropertyInfo, String subPath) {
-
+	public PropertyInfo getProperty(PropertyInfo upperPropertyInfo, String subPath) {
 		PropertyInfo propertyInfo = new PropertyInfo();
-		Object[] array = (Object[]) upPropertyInfo.getValue();
+		Object[] array = (Object[]) upperPropertyInfo.getValue();
 		Object value = null;
 		if (PathParser.isIndexed(subPath)) {
 			value = array[PathParser.parseIndexedPath(subPath)];
@@ -20,7 +19,7 @@ public class ArrayProperyHandler implements PropertyHandler {
 		if (value != null) {
 			type = value.getClass();
 		} else {
-			type = upPropertyInfo.getType().getComponentType();
+			type = upperPropertyInfo.getType().getComponentType();
 		}
 		propertyInfo.setGenericTypes(genericTypes);
 		propertyInfo.setType(type);
@@ -30,9 +29,12 @@ public class ArrayProperyHandler implements PropertyHandler {
 	}
 
 	@Override
-	public void setProperty(PropertyInfo upPropertyInfo, String subPath, Object value) {
-		// TODO Auto-generated method stub
-
+	public void setProperty(PropertyInfo upperPropertyInfo, String subPath, Object value) {
+		PropertyInfo propertyInfo = new PropertyInfo();
+		int index = PathParser.parseIndexedPath(subPath);
+		Object[] array = (Object[]) upperPropertyInfo.getValue();
+		Class type = upperPropertyInfo.getType().getComponentType();
+		array[index] = value;
 	}
 
 }

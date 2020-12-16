@@ -24,9 +24,11 @@ public class PathParser {
 		for (int begin = index; index < path.length(); index++) {
 			char c = path.charAt(index);
 			if (c == POINT) {
-				index++;
-				break;
-			} else if (c == INDEXEDBEGIN && c != begin) {
+				if(subPath.length()>0) {
+					index++;
+					break;
+				}
+			} else if (c == INDEXEDBEGIN && index != begin) {
 				break;
 			} else if (c == INDEXEDEND) {
 				subPath.append(Character.toString(c));
@@ -42,19 +44,6 @@ public class PathParser {
 
 	static public boolean isIndexed(String subPath) {
 		return subPath.startsWith(Character.toString(INDEXEDBEGIN)) && subPath.endsWith(Character.toString(INDEXEDEND));
-	}
-
-	boolean hasLast() {
-		int i = 0;
-		PathParser pathParser = new PathParser(path.substring(index));
-		while (pathParser.hasNext()) {
-			pathParser.next();
-			i++;
-			if (i > 1) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	static public int parseIndexedPath(String subPath) {

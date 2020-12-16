@@ -2,7 +2,7 @@ package test;
 
 import java.util.Date;
 
-public class Stu {
+public class Student {
 	String name;
 	String sex;
 	String age;

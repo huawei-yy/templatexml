@@ -1,8 +1,6 @@
 package pers.yhw.templatexml.beanpropertyutils;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PropertyInfo {
 	private Class type;
@@ -33,6 +31,5 @@ public class PropertyInfo {
 		this.genericTypes = genericTypes;
 	}
 
-	
 
 }

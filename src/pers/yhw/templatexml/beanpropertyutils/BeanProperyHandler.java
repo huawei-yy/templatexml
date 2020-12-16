@@ -12,14 +12,14 @@ public class BeanProperyHandler implements PropertyHandler {
 	private static ConcurrentHashMap<Class, ConcurrentHashMap<String, Field>> class_FiledMap = new ConcurrentHashMap<Class, ConcurrentHashMap<String, Field>>();
 
 	@Override
-	public PropertyInfo getProperty(PropertyInfo upPropertyInfo, String subPath) {
+	public PropertyInfo getProperty(PropertyInfo upperPropertyInfo, String subPath) {
 		PropertyInfo propertyInfo = new PropertyInfo();
-		Object object = upPropertyInfo.getValue();
-		Type[] upGenericTypes = upPropertyInfo.getGenericTypes();
+		Object object = upperPropertyInfo.getValue();
+		Type[] upGenericTypes = upperPropertyInfo.getGenericTypes();
 		Object value = null;
 		Type[] genericTypes = null;
 		Class type = null;
-		Class upType = upPropertyInfo.getType();
+		Class upType = upperPropertyInfo.getType();
 		Field field = getDeclaredField(upType, subPath);
 		Method getMethod = null;
 		String name = (new StringBuilder()).append(Character.toUpperCase(subPath.charAt(0)))
@@ -56,9 +56,20 @@ public class BeanProperyHandler implements PropertyHandler {
 	}
 
 	@Override
-	public void setProperty(PropertyInfo upPropertyInfo, String subPath, Object value) {
-		// TODO Auto-generated method stub
-
+	public void setProperty(PropertyInfo upperPropertyInfo, String subPath, Object value) {
+		Object object = upperPropertyInfo.getValue();
+		Class upperType = upperPropertyInfo.getType();
+		Method setMethod = null;
+		String name = (new StringBuilder()).append(Character.toUpperCase(subPath.charAt(0)))
+				.append(subPath.substring(1)).toString();
+		setMethod = getDeclaredMethod(upperType, "set" + name);
+		if (setMethod != null) {
+			try {
+				setMethod.invoke(object, value);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	/**
@@ -131,5 +142,6 @@ public class BeanProperyHandler implements PropertyHandler {
 		}
 		return method;
 	}
+
 
 }

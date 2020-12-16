@@ -1,6 +1,7 @@
 package pers.yhw.templatexml.xmlhandler.elementhandler;
 
-import java.util.Arrays;
+import java.lang.reflect.Array;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -19,36 +20,34 @@ class RepeatElementHandler implements ElementHandler {
 		// 根据对象获得要取值对象的
 		RepeatAttribute repeatAttribute = parseRepeatAttribute(attribute);
 		String eachExpression = repeatAttribute.getEachExpression();
-		Object realListObject = BeanPropertyUtils.getProperty(objectVos, repeatAttribute.getListExpression());
-		Iterable iterableObject = toIterable(realListObject, repeatAttribute.getListExpression());
+		Object repeatableObject = BeanPropertyUtils.getProperty(objectVos, repeatAttribute.getListExpression());
+		int size = getSize(repeatableObject);
 		// 循环list
 		Element parentElement = templateElement.getParent();
-		if (iterableObject != null)
-			for (Object object : iterableObject) {
-				// 添加节点
-				Element newElement = (Element) templateElement.clone();
-				parentElement.add(newElement);
-				objectVos.put(eachExpression, object);
-				ElementHandler elementHandler = ElementHandlerManager.getElementHandler(newElement);
-				elementHandler.buildElement(newElement, objectVos);
-				objectVos.remove(eachExpression);
-			}
+		for (int i = 0; i < size; i++) {
+			Object eachObject = BeanPropertyUtils.getProperty(repeatableObject, "[" + i + "]");
+			// 添加节点
+			Element newElement = (Element) templateElement.clone();
+			parentElement.add(newElement);
+			objectVos.put(eachExpression, eachObject);
+			ElementHandler elementHandler = ElementHandlerManager.getElementHandler(newElement);
+			elementHandler.buildElement(newElement, objectVos);
+			objectVos.remove(eachExpression);
+		}
 		// 删除模板对象
 		parentElement.remove(templateElement);
 	}
 
-	private Iterable toIterable(Object realListObject, String listExpression) {
-		Iterable returnObject = null;
-		if (realListObject != null) {
-			if (Iterable.class.isAssignableFrom(realListObject.getClass())) {
-				returnObject = (Iterable) realListObject;
-			} else if (realListObject.getClass().isArray()) {
-				returnObject = Arrays.asList(returnObject);
-			} else {
-				throw new RuntimeException(listExpression + "is not iterable");
+	private int getSize(Object repeatableObject) {
+		int size = 0;
+		if (repeatableObject != null) {
+			if (Collection.class.isAssignableFrom(repeatableObject.getClass())) {
+				size = ((Collection) repeatableObject).size();
+			} else if (repeatableObject.getClass().isArray()) {
+				size = Array.getLength(repeatableObject);
 			}
 		}
-		return returnObject;
+		return size;
 	}
 
 	private RepeatAttribute parseRepeatAttribute(Attribute attribute) {
@@ -94,9 +93,17 @@ class RepeatElementHandler implements ElementHandler {
 	public void parseElement(Element templateElement, Element targetElement, Map<String, Object> objectVos) {
 		Attribute attribute = getAndRemoveAttribute(templateElement);
 		String templateElementName = templateElement.getName();
-		List<Element> targetElements=targetElement.getParent().elements(templateElementName);
-		for(Element targetElemenTemp:targetElements) {
-			
+		List<Element> targetElements = targetElement.getParent().elements(templateElementName);
+		int size = targetElements.size();
+		RepeatAttribute repeatAttribute = parseRepeatAttribute(attribute);
+		String eachExpression = repeatAttribute.getEachExpression();
+		Object repeatableObject = BeanPropertyUtils.getPropertyOrDefult(objectVos, repeatAttribute.getListExpression());
+		for (int i = 0; i < size; i++) {
+			Object eachObject = BeanPropertyUtils.getPropertyOrDefult(objectVos, repeatAttribute.getListExpression()+"[" + i + "]");
+			objectVos.put(eachExpression, eachObject);
+			ElementHandler elementHandler = ElementHandlerManager.getElementHandler(templateElement);
+			elementHandler.parseElement((Element) templateElement.clone(), targetElements.get(i), objectVos);
+			objectVos.remove(eachExpression);
 		}
 	}
 }

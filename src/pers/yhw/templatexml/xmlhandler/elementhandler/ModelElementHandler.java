@@ -83,6 +83,16 @@ class ModelElementHandler implements ElementHandler {
 	@Override
 	public void parseElement(Element templateElement, Element targetElement, Map<String, Object> objectVos) {
 		Attribute attribute = getAndRemoveAttribute(templateElement);
-		
+		ModelAttribute modelAttribute = parseModelAttribute(attribute);
+		String valueStr = targetElement.getText();
+		if (!valueStr.equals("")) {
+			Object value = null;
+			if (modelAttribute.isHasFormat()) {
+				value = FormaterManager.toObject(valueStr, modelAttribute.getFormatExpression());
+			} else {
+				value = valueStr;
+			}
+			BeanPropertyUtils.setProperty(objectVos, modelAttribute.getValueExpression(), value);
+		}
 	}
 }
