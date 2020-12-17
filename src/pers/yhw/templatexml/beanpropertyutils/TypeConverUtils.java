@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * @author yhw
  *
  */
-public class TypeConver {
+public class TypeConverUtils {
 	private static final Pattern NUMBER_WITH_TRAILING_ZEROS_PATTERN = Pattern.compile("\\.0*$");
 
 	public static <T> T cast(Object obj, Class<T> clazz) {

@@ -59,7 +59,7 @@ public class BeanPropertyUtils {
 				}
 				propertyInfo = tempropertyInfo;
 			} else {
-				value = TypeConver.cast(value, tempropertyInfo.getType());
+				value = TypeConverUtils.cast(value, tempropertyInfo.getType());
 				propertyHandler.setProperty(propertyInfo, subPath, value);
 			}
 		}
