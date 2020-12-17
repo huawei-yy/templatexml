@@ -9,7 +9,7 @@ import java.util.List;
 import com.sun.javafx.collections.MappingChange.Map;
 
 public class NewInstanceUtils {
-	static public <T> T newInstance(Class<T> clazz) {
+	static <T> T newInstance(Class<T> clazz) {
 		T value = null;
 		if (clazz.isArray()) {
 			value = (T) Array.newInstance(clazz.getComponentType(), 0);

@@ -16,7 +16,7 @@ public class ElementHandlerManager {
 		regist(new OrdinaryElementHandler());
 	}
 
-	public static ElementHandler getElementHandler(Element element) {
+	static ElementHandler getElementHandler(Element element) {
 		for (int i = 0; i < element.attributeCount(); i++) {
 			String attributeName = element.attribute(i).getName();
 			ElementHandler elementHandler = elementHandlerMap.get(attributeName);

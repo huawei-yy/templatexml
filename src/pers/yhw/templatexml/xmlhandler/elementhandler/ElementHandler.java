@@ -6,8 +6,6 @@ import java.util.Map;
 import org.dom4j.Attribute;
 import org.dom4j.Element;
 
-import pers.yhw.templatexml.xmlhandler.Constant;
-
 public interface ElementHandler {
 	String applyToAttributeName();
 
@@ -31,6 +29,12 @@ public interface ElementHandler {
 	 */
 	void buildElement(Element templateElement, Map<String, Object> objectVos);
 
+	/**
+	 * 根据模板解析
+	 * @param templateElement
+	 * @param targetElement
+	 * @param objectVos
+	 */
 	void parseElement(Element templateElement, Element targetElement, Map<String, Object> objectVos);
 
 }

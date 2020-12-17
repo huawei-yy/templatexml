@@ -10,9 +10,11 @@ import org.dom4j.Element;
 
 import pers.yhw.templatexml.beanpropertyutils.BeanPropertyUtils;
 import pers.yhw.templatexml.xmlhandler.Constant;
-import pers.yhw.templatexml.xmlhandler.RegExCheck;
 
 class RepeatElementHandler implements ElementHandler {
+	RepeatElementHandler() {
+
+	}
 
 	@Override
 	public void buildElement(Element templateElement, Map<String, Object> objectVos) {
@@ -99,7 +101,8 @@ class RepeatElementHandler implements ElementHandler {
 		String eachExpression = repeatAttribute.getEachExpression();
 		Object repeatableObject = BeanPropertyUtils.getPropertyOrDefult(objectVos, repeatAttribute.getListExpression());
 		for (int i = 0; i < size; i++) {
-			Object eachObject = BeanPropertyUtils.getPropertyOrDefult(objectVos, repeatAttribute.getListExpression()+"[" + i + "]");
+			Object eachObject = BeanPropertyUtils.getPropertyOrDefult(objectVos,
+					repeatAttribute.getListExpression() + "[" + i + "]");
 			objectVos.put(eachExpression, eachObject);
 			ElementHandler elementHandler = ElementHandlerManager.getElementHandler(templateElement);
 			elementHandler.parseElement((Element) templateElement.clone(), targetElements.get(i), objectVos);

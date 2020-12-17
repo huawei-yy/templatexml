@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MapPropertyHandler implements PropertyHandler {
+	MapPropertyHandler() {
+
+	}
 
 	@Override
 	public PropertyInfo getProperty(PropertyInfo upperPropertyInfo, String subPath) {

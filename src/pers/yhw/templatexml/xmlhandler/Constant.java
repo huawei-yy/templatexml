@@ -12,5 +12,4 @@ public class Constant {
 	public static final String NUMBERFORMAT = "numberFormat";
 	public static final String TRANSCODE = "transCode";
 
-
 }

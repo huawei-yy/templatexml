@@ -3,6 +3,9 @@ package pers.yhw.templatexml.beanpropertyutils;
 import java.lang.reflect.Type;
 
 public class ArrayProperyHandler implements PropertyHandler {
+	ArrayProperyHandler() {
+
+	}
 
 	@Override
 	public PropertyInfo getProperty(PropertyInfo upperPropertyInfo, String subPath) {

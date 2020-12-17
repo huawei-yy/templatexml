@@ -1,11 +1,13 @@
 package pers.yhw.templatexml.beanpropertyutils;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
 public class ListPropertyHandler implements PropertyHandler {
+	ListPropertyHandler() {
+
+	}
 
 	@Override
 	public PropertyInfo getProperty(PropertyInfo upperPropertyInfo, String subPath) {
@@ -30,8 +32,8 @@ public class ListPropertyHandler implements PropertyHandler {
 				if (upGenericTypes[0] instanceof ParameterizedType) {
 					type = (Class) ((ParameterizedType) upGenericTypes[0]).getRawType();
 					genericTypes = ((ParameterizedType) upGenericTypes[0]).getActualTypeArguments();
-				}else if (upGenericTypes[0] instanceof Class){
-					type = (Class) ( upGenericTypes[0]);
+				} else if (upGenericTypes[0] instanceof Class) {
+					type = (Class) (upGenericTypes[0]);
 				}
 			}
 		}

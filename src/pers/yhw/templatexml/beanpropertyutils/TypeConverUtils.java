@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public class TypeConverUtils {
 	private static final Pattern NUMBER_WITH_TRAILING_ZEROS_PATTERN = Pattern.compile("\\.0*$");
 
-	public static <T> T cast(Object obj, Class<T> clazz) {
+	static <T> T cast(Object obj, Class<T> clazz) {
 		if (obj == null) {
 			if (clazz == int.class) {
 				return (T) Integer.valueOf(0);
@@ -180,7 +180,7 @@ public class TypeConverUtils {
 
 	}
 
-	public static Boolean castToBoolean(Object value) {
+	static Boolean castToBoolean(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -223,7 +223,7 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to boolean, value : " + value);
 	}
 
-	public static Character castToChar(Object value) {
+	static Character castToChar(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -243,7 +243,7 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to char, value : " + value);
 	}
 
-	public static Short castToShort(Object value) {
+	static Short castToShort(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -269,7 +269,7 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to short, value : " + value);
 	}
 
-	public static BigDecimal castToBigDecimal(Object value) {
+	static BigDecimal castToBigDecimal(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -289,7 +289,7 @@ public class TypeConverUtils {
 		return new BigDecimal(strVal);
 	}
 
-	public static BigInteger castToBigInteger(Object value) {
+	static BigInteger castToBigInteger(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -315,7 +315,7 @@ public class TypeConverUtils {
 		return new BigInteger(strVal);
 	}
 
-	public static Float castToFloat(Object value) {
+	static Float castToFloat(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -337,7 +337,7 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to float, value : " + value);
 	}
 
-	public static Double castToDouble(Object value) {
+	static Double castToDouble(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -359,11 +359,11 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to double, value : " + value);
 	}
 
-	public static Date castToDate(Object value) {
+	static Date castToDate(Object value) {
 		return castToDate(value, null);
 	}
 
-	public static Date castToDate(Object value, String format) {
+	static Date castToDate(Object value, String format) {
 		if (value == null) {
 			return null;
 		}
@@ -430,7 +430,7 @@ public class TypeConverUtils {
 
 	}
 
-	public static java.sql.Date castToSqlDate(Object value) {
+	static java.sql.Date castToSqlDate(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -468,7 +468,7 @@ public class TypeConverUtils {
 		return new java.sql.Date(longValue);
 	}
 
-	public static Integer castToInt(Object value) {
+	static Integer castToInt(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -518,7 +518,7 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to int, value : " + value);
 	}
 
-	public static byte[] castToBytes(Object value) {
+	static byte[] castToBytes(Object value) {
 		if (value instanceof byte[]) {
 			return (byte[]) value;
 		}
@@ -528,7 +528,7 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to byte[], value : " + value);
 	}
 
-	public static Long castToLong(Object value) {
+	static Long castToLong(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -571,7 +571,7 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to long, value : " + value);
 	}
 
-	public static java.sql.Time castToSqlTime(Object value) {
+	static java.sql.Time castToSqlTime(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -608,7 +608,7 @@ public class TypeConverUtils {
 		return new java.sql.Time(longValue);
 	}
 
-	public static java.sql.Timestamp castToTimestamp(Object value) {
+	static java.sql.Timestamp castToTimestamp(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -664,7 +664,7 @@ public class TypeConverUtils {
 		return new java.sql.Timestamp(longValue);
 	}
 
-	public static Byte castToByte(Object value) {
+	static Byte castToByte(Object value) {
 		if (value == null) {
 			return null;
 		}
@@ -689,14 +689,14 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to byte, value : " + value);
 	}
 
-	public static String castToString(Object value) {
+	static String castToString(Object value) {
 		if (value == null) {
 			return null;
 		}
 		return value.toString();
 	}
 
-	public static <T> T castToEnum(Object obj, Class<T> clazz) {
+	static <T> T castToEnum(Object obj, Class<T> clazz) {
 		try {
 			if (obj instanceof String) {
 				String name = (String) obj;
@@ -728,7 +728,7 @@ public class TypeConverUtils {
 		throw new RuntimeException("can not cast to : " + clazz.getName());
 	}
 
-	public static byte byteValue(BigDecimal decimal) {
+	static byte byteValue(BigDecimal decimal) {
 		if (decimal == null) {
 			return 0;
 		}
@@ -741,7 +741,7 @@ public class TypeConverUtils {
 		return decimal.byteValueExact();
 	}
 
-	public static short shortValue(BigDecimal decimal) {
+	static short shortValue(BigDecimal decimal) {
 		if (decimal == null) {
 			return 0;
 		}
@@ -754,7 +754,7 @@ public class TypeConverUtils {
 		return decimal.shortValueExact();
 	}
 
-	public static int intValue(BigDecimal decimal) {
+	static int intValue(BigDecimal decimal) {
 		if (decimal == null) {
 			return 0;
 		}
@@ -767,7 +767,7 @@ public class TypeConverUtils {
 		return decimal.intValueExact();
 	}
 
-	public static long longValue(BigDecimal decimal) {
+	static long longValue(BigDecimal decimal) {
 		if (decimal == null) {
 			return 0;
 		}
@@ -780,7 +780,7 @@ public class TypeConverUtils {
 		return decimal.longValueExact();
 	}
 
-	public static boolean isNumber(String str) {
+	static boolean isNumber(String str) {
 		for (int i = 0; i < str.length(); ++i) {
 			char ch = str.charAt(i);
 			if (ch == '+' || ch == '-') {

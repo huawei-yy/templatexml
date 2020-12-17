@@ -7,6 +7,10 @@ public class PropertyInfo {
 	private Object value;
 	private Type[] genericTypes;
 
+	PropertyInfo() {
+
+	}
+
 	public Class getType() {
 		return type;
 	}
@@ -30,6 +34,5 @@ public class PropertyInfo {
 	public void setGenericTypes(Type[] genericTypes) {
 		this.genericTypes = genericTypes;
 	}
-
 
 }

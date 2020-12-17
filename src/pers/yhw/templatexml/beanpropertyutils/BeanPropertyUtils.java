@@ -25,10 +25,15 @@ public class BeanPropertyUtils {
 	}
 
 	public static Object getPropertyOrDefult(Object object, String path) {
+		return getPropertyOrDefult(object, path, null);
+	}
+
+	public static Object getPropertyOrDefult(Object object, String path, Type... genericTypes) {
 		PathParser pathParser = new PathParser(path);
 		PropertyInfo propertyInfo = new PropertyInfo();
 		propertyInfo.setType(object.getClass());
 		propertyInfo.setValue(object);
+		propertyInfo.setGenericTypes(genericTypes);
 		while (pathParser.hasNext()) {
 			String subPath = pathParser.next();
 			PropertyHandler propertyHandler = PropertyHandlerManager.getPropertyHandler(propertyInfo.getType());

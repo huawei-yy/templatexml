@@ -10,6 +10,9 @@ import pers.yhw.templatexml.xmlhandler.Constant;
 import pers.yhw.templatexml.xmlhandler.format.FormaterManager;
 
 class ModelElementHandler implements ElementHandler {
+	ModelElementHandler() {
+
+	}
 
 	@Override
 	public void buildElement(Element templateElement, Map<String, Object> objectVos) {

@@ -11,6 +11,10 @@ public class BeanProperyHandler implements PropertyHandler {
 	private static ConcurrentHashMap<Class, ConcurrentHashMap<String, Method>> class_MethodMap = new ConcurrentHashMap<Class, ConcurrentHashMap<String, Method>>();
 	private static ConcurrentHashMap<Class, ConcurrentHashMap<String, Field>> class_FiledMap = new ConcurrentHashMap<Class, ConcurrentHashMap<String, Field>>();
 
+	BeanProperyHandler() {
+
+	}
+
 	@Override
 	public PropertyInfo getProperty(PropertyInfo upperPropertyInfo, String subPath) {
 		PropertyInfo propertyInfo = new PropertyInfo();
@@ -142,6 +146,5 @@ public class BeanProperyHandler implements PropertyHandler {
 		}
 		return method;
 	}
-
 
 }

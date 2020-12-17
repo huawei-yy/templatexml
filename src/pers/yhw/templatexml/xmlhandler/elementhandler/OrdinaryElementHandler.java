@@ -8,6 +8,10 @@ import org.dom4j.Element;
 import pers.yhw.templatexml.xmlhandler.Constant;
 
 class OrdinaryElementHandler implements ElementHandler {
+	OrdinaryElementHandler() {
+
+	}
+
 	@Override
 	public void buildElement(Element templateElement, Map<String, Object> objectVos) {
 		if (templateElement != null) {

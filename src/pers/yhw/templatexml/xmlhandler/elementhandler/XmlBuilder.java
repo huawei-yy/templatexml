@@ -1,4 +1,4 @@
-package pers.yhw.templatexml.xmlhandler;
+package pers.yhw.templatexml.xmlhandler.elementhandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +7,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-
-import pers.yhw.templatexml.xmlhandler.elementhandler.ElementHandler;
-import pers.yhw.templatexml.xmlhandler.elementhandler.ElementHandlerManager;
 
 public class XmlBuilder {
 	public static String buildxml(Object object, String xmlTemplate) throws DocumentException {
